@@ -10,6 +10,40 @@ IMAGE_CONTENTS = b"/9j/4AAQSkZJRgABAQEBLAEsAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJC
 
 
 class AnimalTestCase(TestCase):
+    def test_ken_hypothesis_1(self):
+        instance = TestModel()
+
+        instance.image = ContentFile(
+            base64.b64decode(IMAGE_CONTENTS),
+        )
+
+        instance.image.name = "XXXX"
+
+        # Make sure file is still there
+        self.assertEqual(
+            instance.image.read(),
+            IMAGE_CONTENTS,
+        )
+
+    def test_ken_hypothesis_2(self):
+        instance = TestModel()
+
+        instance.image = ContentFile(
+            base64.b64decode(IMAGE_CONTENTS),
+        )
+        # Data thrown away here silently
+        instance.save()
+
+        instance = TestModel.objects.get(id=instance.id)
+
+        instance.image.name = "XXXX"
+
+        # Make sure file is still there
+        self.assertEqual(
+            instance.image.read(),
+            IMAGE_CONTENTS,
+        )
+
     def test_content_file_reasonable_error_after_explicit_re_init(self):
         instance = TestModel()
 

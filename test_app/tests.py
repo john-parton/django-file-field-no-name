@@ -29,7 +29,7 @@ class AnimalTestCase(TestCase):
         instance = TestModel()
 
         instance.image = ContentFile(IMAGE_CONTENTS)
-        instance.save()
+        instance.save()  # <-- Data is silently _not_ saved to the file system or storage backend without raising an exception
 
         instance = TestModel.objects.get(id=instance.id)
         instance.image.name = "XXXX"

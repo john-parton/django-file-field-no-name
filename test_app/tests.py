@@ -44,6 +44,22 @@ class AnimalTestCase(TestCase):
             IMAGE_CONTENTS,
         )
 
+    def test_ken_hypothesis_3(self):
+        instance = TestModel()
+
+        instance.image = ContentFile(
+            base64.b64decode(IMAGE_CONTENTS),
+        )
+
+        instance.image.name = "XXXX"
+
+        instance.save()
+
+        self.assertEqual(
+            instance.image.read(),
+            IMAGE_CONTENTS,
+        )
+
     def test_content_file_reasonable_error_after_explicit_re_init(self):
         instance = TestModel()
 
